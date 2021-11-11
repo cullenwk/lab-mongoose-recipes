@@ -21,7 +21,34 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    let newRecipe = {
+      title: 'CW Recipe',
+      level: 'Amateur Chef',
+      ingredients: ['beef', 'onion', 'shallot', 'curry powder', 'olive oil', 'tomatoes'],
+      cuisine: 'Malaysia cuisine',
+      dishType:'main_course',
+      image: 'https://images.media-allrecipes.com/images/75131.jpg',
+      duration: 40,
+      creator: 'CWK',
+      created: Date('Nov 11, 2021'),
+    }
+    return Recipe.create(newRecipe)
   })
+  .then ((manyRecipes) => {
+    console.log(manyRecipes.title)
+    return Recipe.insertMany(data)
+  })
+  .then ((updateRecipe) => {
+    return Recipe.updateOne({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  })
+  .then ((deleteRecipe) => {
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+  })
+
+  .then((closeData) => {
+    mongoose.connection.close()
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
